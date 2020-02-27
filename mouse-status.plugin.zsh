@@ -36,4 +36,6 @@ mouse_status() {
   esac
 }
 
-precmd_functions+=(mouse_status)
+if (( $+commands[ratbagctl] )) ; then
+  precmd_functions+=(mouse_status)
+fi
