@@ -1,8 +1,9 @@
 #!/usr/bin/env zsh
 
+device=$(ratbagctl list | cut -d: -f1)
+leds=$(ratbagctl $device info | grep "Number of Leds" | cut -d: -f2 | tr -d " ")
+
 _set_color() {
-  local device=$(ratbagctl list | cut -d: -f1)
-  local leds=$(ratbagctl $device info | grep "Number of Leds" | cut -d: -f2 | tr -d " ")
   for ((i=0;i<=(leds-1);i++)); do
     ratbagctl $device led $i set color $1
   done
