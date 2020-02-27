@@ -2,7 +2,10 @@
 
 _set_color() {
   local device=$(ratbagctl list | cut -d: -f1)
-  ratbagctl $device led 0 set color $1
+  local leds=$(ratbagctl $device info | grep "Number of Leds" | cut -d: -f2 | tr -d " ")
+  for ((i=1;i<=leds;i++)); do
+    ratbagctl $device led $i set color $1
+  done
 }
 
 
